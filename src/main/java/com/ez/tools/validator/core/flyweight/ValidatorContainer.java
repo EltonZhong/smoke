@@ -8,21 +8,16 @@ import com.ez.tools.validator.core.flyweight.impl.NotNullValidator;
 import com.ez.tools.validator.core.flyweight.impl.StringValidator;
 
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ValidatorContainer {
 
     private Map<Class<? extends Annotation>, BasicValidator> map;
+    private static ValidatorContainer instance = new ValidatorContainer();
 
-    public ValidatorContainer() {
-        constructValidatorsMap();
-    }
-
-    private void constructValidatorsMap() {
-        map = new HashMap<>();
-        map.put(VInt.class, new IntegerValidator<VInt, Integer>());
-        map.put(VString.class, new StringValidator());
-        map.put(VNotNull.class, new NotNullValidator());
+    public static ValidatorContainer getInstance() {
+        return instance;
     }
 
     public void validate(Object value, Annotation an, String message) {
@@ -30,6 +25,17 @@ public class ValidatorContainer {
                 .validate(value)
                 .whenFail(message)
                 .with(an);
+    }
+
+    private ValidatorContainer() {
+        constructValidatorsMap();
+    }
+
+    private void constructValidatorsMap() {
+        map = new HashMap<>();
+        map.put(VInt.class, new IntegerValidator<>());
+        map.put(VString.class, new StringValidator());
+        map.put(VNotNull.class, new NotNullValidator());
     }
 
     @SuppressWarnings("unchecked")

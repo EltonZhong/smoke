@@ -22,6 +22,10 @@ public class IntegerValidator<T extends VInt, V extends Integer> extends BasicVa
     }
 
     private void shouldBe() {
+        if (annotation.shouldBe().length + annotation.value().length == 0) {
+            return;
+        }
+
         boolean isValueNotInShouldBes = Stream.of(annotation.shouldBe(), annotation.value())
                 .flatMapToInt(Arrays::stream)
                 .noneMatch(s -> value.equals(s));

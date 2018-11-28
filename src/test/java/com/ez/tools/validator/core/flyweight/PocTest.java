@@ -1,6 +1,7 @@
 package com.ez.tools.validator.core.flyweight;
 
 import com.ez.tools.validator.core.Validator;
+import com.ez.tools.validator.factory.dtos.User;
 import org.junit.Test;
 
 public class PocTest {

@@ -23,6 +23,10 @@ public class StringValidator<T extends VString, V extends String> extends BasicV
     }
 
     private void shouldBe() {
+        if (annotation.shouldBe().length + annotation.value().length == 0) {
+            return;
+        }
+
         boolean isValueNotInShouldBes = Stream.of(annotation.shouldBe(), annotation.value())
                 .flatMap(Arrays::stream)
                 .noneMatch(s -> s.contentEquals(value));
