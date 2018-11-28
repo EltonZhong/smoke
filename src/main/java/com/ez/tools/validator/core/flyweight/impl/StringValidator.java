@@ -5,13 +5,16 @@ import com.ez.tools.validator.annotations.VString;
 import com.ez.tools.validator.core.flyweight.BasicValidator;
 import org.apache.commons.lang3.Validate;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class StringValidator<T extends VString, V extends String> extends BasicValidator<T, V> {
-    private VString ano;
-
     @Override
     public void with(T annotation) {
-        ano = annotation;
+        this.annotation = annotation;
+        if (value == null) {
+            return;
+        }
+
         this.notEmpty();
         this.shouldBe();
         this.shouldNotBe();
@@ -20,38 +23,35 @@ public class StringValidator<T extends VString, V extends String> extends BasicV
     }
 
     private void shouldBe() {
-        if (Arrays.stream(ano.shouldBe()).noneMatch(s -> s.contentEquals(value))) {
+        boolean isValueNotInShouldBes = Stream.of(annotation.shouldBe(), annotation.value())
+                .flatMap(Arrays::stream)
+                .noneMatch(s -> s.contentEquals(value));
+        if (isValueNotInShouldBes) {
             fail();
         }
     }
 
     private void shouldNotBe() {
-        if (Arrays.stream(ano.shouldNotBe()).anyMatch(s -> s.contentEquals(value))) {
+        if (Arrays.stream(annotation.shouldNotBe()).anyMatch(s -> s.contentEquals(value))) {
             fail();
         }
     }
 
     private void shouldContain() {
-        if (!Arrays.stream(ano.shouldContain()).allMatch(s -> value.contains(s))) {
+        if (!Arrays.stream(annotation.shouldContain()).allMatch(s -> value.contains(s))) {
             fail();
         }
     }
 
     private void shouldNotContain() {
-        if (Arrays.stream(ano.shouldNotContain()).anyMatch(s -> value.contains(s))) {
+        if (Arrays.stream(annotation.shouldNotContain()).anyMatch(s -> value.contains(s))) {
             fail();
         }
     }
 
-    /**
-     * TODO: validate chain
-     */
     private void notEmpty() {
-        if (ano.notEmpty()) {
+        if (annotation.notEmpty()) {
             Validate.notEmpty(value);
-        }
-
-        if (!ano.notEmpty() && value == null) {
         }
     }
 }

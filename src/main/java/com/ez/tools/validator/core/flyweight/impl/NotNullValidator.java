@@ -9,7 +9,7 @@ import java.lang.annotation.Annotation;
 public class NotNullValidator<T extends Annotation, V> extends BasicValidator<T, V> {
     @Override
     public void with(T annotation) {
-        VNotNull a = (VNotNull) annotation;
+        this.annotation =  annotation;
         Validate.notNull(value);
     }
 }

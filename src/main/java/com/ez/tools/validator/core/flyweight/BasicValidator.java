@@ -5,6 +5,7 @@ import org.apache.commons.lang3.Validate;
 import java.lang.annotation.Annotation;
 
 public abstract class BasicValidator<T extends Annotation, V> {
+    protected T annotation;
     protected V value = null;
     private String errorMessage = null;
 

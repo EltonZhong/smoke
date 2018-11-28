@@ -1,6 +1,5 @@
 package com.ez.tools.validator.core.flyweight;
 
-import com.ez.tools.validator.annotations.Default;
 import com.ez.tools.validator.annotations.VInt;
 import com.ez.tools.validator.annotations.VNotNull;
 import com.ez.tools.validator.annotations.VString;
