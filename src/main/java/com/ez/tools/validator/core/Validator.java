@@ -14,7 +14,7 @@ public class Validator {
 
     public void validate(Object o) {
         Arrays.stream(o.getClass().getDeclaredFields()).forEach(field -> new FieldValidator(field, o).validate());
-        Arrays.stream(o.getClass().getDeclaredMethods()).forEach(method -> new MethodValidator(method, o));
+        Arrays.stream(o.getClass().getDeclaredMethods()).forEach(method -> new MethodValidator(method, o).validate());
     }
 
     private abstract class BaseValidator {
@@ -25,7 +25,7 @@ public class Validator {
 
         abstract protected void validateWithAnnotation(Annotation annotation);
 
-        protected boolean isVAnnotation(Annotation annotation) {
+        boolean isVAnnotation(Annotation annotation) {
             return annotation.annotationType().getAnnotation(IAnnotation.class) == null;
         }
 

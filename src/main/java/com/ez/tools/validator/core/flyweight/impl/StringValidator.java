@@ -43,6 +43,9 @@ public class StringValidator<T extends VString, V extends String> extends BasicV
         }
     }
 
+    /**
+     * TODO: validate chain
+     */
     private void notEmpty() {
         if (ano.notEmpty()) {
             Validate.notEmpty(value);
