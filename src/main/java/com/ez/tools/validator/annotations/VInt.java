@@ -6,7 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 @IAnnotation
 @Retention(RetentionPolicy.RUNTIME)
 public @interface VInt {
-    int value();
-    int greaterThan();
-    int lessThan();
+    int[] shouldBe() default {};
+    int[] shouldNotBe() default {};
+    int[] greaterThan() default {};
+    int[] lessThan() default {};
+    boolean notZero() default false;
+
+    // Should be
+    int[] value() default {};
 }
