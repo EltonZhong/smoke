@@ -3,9 +3,9 @@ package com.ez.tools.validator.core.flyweight;
 import com.ez.tools.validator.core.Validator;
 import org.junit.Test;
 
-public class IntegerValidatorTest {
+public class PocTest {
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void poc() {
         User user = new User();
         user.age = 10;

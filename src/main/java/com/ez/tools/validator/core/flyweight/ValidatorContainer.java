@@ -26,8 +26,11 @@ public class ValidatorContainer {
         map.put(VNotNull.class, new NotNullValidator());
     }
 
-    public void validate(Object value, Annotation an) {
-        getByAnnotation(an).validate(value).with(an);
+    public void validate(Object value, Annotation an, String message) {
+        getByAnnotation(an)
+                .validate(value)
+                .whenFail(message)
+                .with(an);
     }
 
     @SuppressWarnings("unchecked")
