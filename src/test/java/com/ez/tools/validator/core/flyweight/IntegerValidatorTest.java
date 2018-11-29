@@ -1,25 +1,25 @@
 package com.ez.tools.validator.core.flyweight;
 
-import com.ez.tools.validator.factory.dtos.User;
+import com.ez.tools.validator.factory.dtos.DtoWithIntFields;
 import com.ez.tools.validator.lib.ValidationTestBuilder;
 import org.junit.Test;
 
-public class StringValidatorTest {
+public class IntegerValidatorTest {
     @Test
     public void shouldPassForFieldValueInShouldBe() {
         ValidationTestBuilder
-                .setClass(User.class)
+                .setClass(DtoWithIntFields.class)
                 .setFieldName("fieldShoudBeIn123")
-                .setValue("1")
+                .setValue(1)
                 .build();
     }
 
     @Test
     public void failWhenValueNotInShouldBe() {
         ValidationTestBuilder
-                .setClass(User.class)
+                .setClass(DtoWithIntFields.class)
                 .setFieldName("fieldShoudBeIn123")
-                .setValue("4")
+                .setValue(4)
                 .expectException(IllegalStateException.class)
                 .build();
     }
@@ -27,9 +27,9 @@ public class StringValidatorTest {
     @Test
     public void failWhenValueInShouldNotBe() {
         ValidationTestBuilder
-                .setClass(User.class)
+                .setClass(DtoWithIntFields.class)
                 .setFieldName("fieldShouNotBe1234")
-                .setValue("4")
+                .setValue(4)
                 .expectException(IllegalStateException.class)
                 .build();
     }
@@ -37,56 +37,56 @@ public class StringValidatorTest {
     @Test
     public void shouldPassWhenValueInValues() {
         ValidationTestBuilder
-                .setClass(User.class)
+                .setClass(DtoWithIntFields.class)
                 .setFieldName("valueShouldBe12")
-                .setValue("1")
+                .setValue(1)
                 .build();
     }
 
     @Test
     public void shouldFailWhenValueNotInValues() {
         ValidationTestBuilder
-                .setClass(User.class)
+                .setClass(DtoWithIntFields.class)
                 .setFieldName("valueShouldBe12")
-                .setValue("3")
+                .setValue(3)
                 .expectException(IllegalStateException.class)
                 .build();
     }
 
     @Test
-    public void shouldPassWhenValueContainsAllshouldContain() {
+    public void shouldPassWhenValueGreaterThanAllGreater() {
         ValidationTestBuilder
-                .setClass(User.class)
-                .setFieldName("shouldContain_abc_And_123")
-                .setValue("adadabcadadad123")
+                .setClass(DtoWithIntFields.class)
+                .setFieldName("shouldBeGreaterThan1AndNagative2")
+                .setValue(2)
                 .build();
     }
 
     @Test
-    public void shouldFailWhenValueDoesNotContainAllshouldContain() {
+    public void shouldFailWhenValueNotGreaterThanAllGreater() {
         ValidationTestBuilder
-                .setClass(User.class)
-                .setFieldName("shouldContain_abc_And_123")
-                .setValue("aadaaaaaa1122222")
+                .setClass(DtoWithIntFields.class)
+                .setFieldName("shouldBeGreaterThan1AndNagative2")
+                .setValue(1)
                 .expectException(IllegalStateException.class)
                 .build();
     }
 
     @Test
-    public void shouldPassWhenValueDoesNotContainShouldNotContain() {
+    public void shouldPassWhenValueLessThanAllLess() {
         ValidationTestBuilder
-                .setClass(User.class)
-                .setFieldName("shouldNotContain_abc_And_123")
-                .setValue("aadaaaaaa1122222")
+                .setClass(DtoWithIntFields.class)
+                .setFieldName("shouldBeLessThan122AndNagative100")
+                .setValue(-101)
                 .build();
     }
 
     @Test
-    public void shouldFailWhenValueContainsShouldNotContain() {
+    public void shouldFailWhenValueNotLessThanAllLess() {
         ValidationTestBuilder
-                .setClass(User.class)
-                .setFieldName("shouldNotContain_abc_And_123")
-                .setValue("abcadaddadadda")
+                .setClass(DtoWithIntFields.class)
+                .setFieldName("shouldBeLessThan122AndNagative100")
+                .setValue(-100)
                 .expectException(IllegalStateException.class)
                 .build();
     }
@@ -94,8 +94,8 @@ public class StringValidatorTest {
     @Test
     public void willNotValidateWhenFieldIsNull() {
         ValidationTestBuilder
-                .setClass(User.class)
-                .setFieldName("shouldNotContain_abc_And_123")
+                .setClass(DtoWithIntFields.class)
+                .setFieldName("shouldBeLessThan122AndNagative100")
                 .setValue(null)
                 .build();
     }

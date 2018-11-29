@@ -2,7 +2,6 @@ package com.ez.tools.validator.lib;
 
 import com.ez.tools.validator.core.detail.FieldValidator;
 import com.ez.tools.validator.core.detail.MethodValidator;
-import com.ez.tools.validator.factory.dtos.User;
 import org.junit.Assert;
 
 import java.lang.reflect.Field;
@@ -82,7 +81,7 @@ public class ValidationTestBuilder {
     private void setValueAndPrepare() {
         try {
             rootNode = clz.newInstance();
-            field = User.class.getField(fieldName);
+            field = clz.getField(fieldName);
             field.setAccessible(true);
             field.set(rootNode, value);
         } catch (NoSuchFieldException | IllegalAccessException | InstantiationException e) {
@@ -97,7 +96,7 @@ public class ValidationTestBuilder {
     private void validateForMethod() {
         Method method = null;
         try {
-            method = User.class.getMethod(getGetterName(fieldName));
+            method = clz.getMethod(getGetterName(fieldName));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
