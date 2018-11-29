@@ -1,9 +1,51 @@
-plugins {
-    id 'java'
+buildscript {
+    repositories {
+        jcenter()
+    }
 }
 
-group 'com.ez.tools'
-version '1.0-SNAPSHOT'
+plugins {
+    id 'java'
+    id "com.jfrog.bintray" version "1.8.4"
+    id "maven-publish"
+}
+
+def ARTIFACT_ID = 'smoke'
+def GROUP_ID = 'smoke'
+def VERSION = '3.0.0'
+
+group GROUP_ID
+version VERSION
+
+bintray {
+    user = property("bintrayUser")
+    key = property("bintrayKey")
+    configurations = ['archives']
+    pkg {
+        repo = 'tools'
+        name = 'smoke'
+        userOrg = 'ez'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
+        version {
+            name = project.version
+            desc = 'Gradle Bintray Plugin 1.0 final'
+            vcsTag = '1.3.0'
+        }
+    }
+    publications = ['MyPublication']
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId group
+            artifactId ARTIFACT_ID
+            version version
+        }
+    }
+}
 
 sourceCompatibility = 1.8
 

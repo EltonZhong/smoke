@@ -1,7 +1,7 @@
 # Smoke [![Build Status](https://travis-ci.org/EltonZhong/smoke.svg?branch=master)](https://travis-ci.org/EltonZhong/smoke)
 A declarative validator framework for dtos and beans.
 
-## Install
+## Install [ ![Download](https://api.bintray.com/packages/ez/tools/smoke/images/download.svg) ](https://bintray.com/ez/tools/smoke/_latestVersion)
 
 ```bash
 $ npm install koa-better-http-proxy --save
