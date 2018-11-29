@@ -1,4 +1,5 @@
-# Smoke
+# Smoke [![Build Status](https://travis-ci.org/EltonZhong/smoke.svg?branch=master)]
+
 
 A declarative validator framework for dtos and beans.
 
