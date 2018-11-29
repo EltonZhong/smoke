@@ -55,6 +55,10 @@ public class ValidationTestBuilder {
             if (excepClz.isInstance(e)) {
                 return;
             }
+            Assert.fail(String.format(
+                    "Expect excpetion %s to occur, but got %s",
+                    excepClz.getName(), e.getClass().getName())
+            );
         }
 
         Assert.fail(String.format(

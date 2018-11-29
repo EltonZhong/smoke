@@ -5,6 +5,8 @@ import com.ez.tools.validator.annotations.VNotNull;
 import com.ez.tools.validator.annotations.VString;
 
 public class User {
+    @VNotNull
+    public User notNullField = null;
 
     @VNotNull
     @VString({"name1", "name2"})
@@ -27,6 +29,11 @@ public class User {
 
     @VString(shouldNotContain = {"abc", "123"})
     public String shouldNotContain_abc_And_123;
+
+    @VNotNull
+    public User getNotNullField() {
+        return notNullField;
+    }
 
     @VString(shouldNotContain = {"abc", "123"})
     public String getShouldNotContain_abc_And_123() {
