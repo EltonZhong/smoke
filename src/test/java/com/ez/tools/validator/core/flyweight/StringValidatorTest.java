@@ -90,4 +90,13 @@ public class StringValidatorTest {
                 .expectException(IllegalStateException.class)
                 .build();
     }
+
+    @Test
+    public void willNotValidateWhenFieldIsNull() {
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setFieldName("shouldNotContain_abc_And_123")
+                .setValue(null)
+                .build();
+    }
 }
