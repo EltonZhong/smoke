@@ -22,7 +22,7 @@ public class User {
     public String fieldShouNotBe1234 = null;
 
     @VString({"1", "2"})
-    public String hello12 = null;
+    public String valueShouldBe12 = null;
 
     @VString(shouldContain = {"abc", "123"})
     public String shouldContain_abc_And_123;
@@ -59,8 +59,8 @@ public class User {
     }
 
     @VString({"1", "2"})
-    public String getHello12() {
-        return hello12;
+    public String getValueShouldBe12() {
+        return valueShouldBe12;
     }
 
     @VString(shouldContain = {"abc", "123"})
