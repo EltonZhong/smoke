@@ -18,8 +18,8 @@ group GROUP_ID
 version VERSION
 
 bintray {
-    user = property("bintrayUser")
-    key = property("bintrayKey")
+    user = hasProperty("bintrayUser")? property("bintrayUser") : ""
+    key = hasProperty("bintrayKey")? property("bintrayKey") : ""
     configurations = ['archives']
     pkg {
         repo = 'tools'
