@@ -10,42 +10,10 @@ plugins {
     id "maven-publish"
 }
 
-def ARTIFACT_ID = 'smoke'
-def GROUP_ID = 'smoke'
-def VERSION = '3.0.0'
-
 group GROUP_ID
 version VERSION
 
-bintray {
-    user = hasProperty("bintrayUser")? property("bintrayUser") : ""
-    key = hasProperty("bintrayKey")? property("bintrayKey") : ""
-    configurations = ['archives']
-    pkg {
-        repo = 'tools'
-        name = 'smoke'
-        userOrg = 'ez'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
-        version {
-            name = project.version
-            desc = 'Gradle Bintray Plugin 1.0 final'
-            vcsTag = '1.3.0'
-        }
-    }
-    publications = ['MyPublication']
-}
-
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            groupId group
-            artifactId ARTIFACT_ID
-            version version
-        }
-    }
-}
+apply from: 'publish.gradle'
 
 sourceCompatibility = 1.8
 
