@@ -2,9 +2,16 @@
 A declarative validator framework for dtos and beans.
 
 ## Install [ ![Download](https://api.bintray.com/packages/ez/tools/smoke/images/download.svg) ](https://bintray.com/ez/tools/smoke/_latestVersion)
+Get the latest version at [ ![Download](https://api.bintray.com/packages/ez/tools/smoke/images/download.svg) ](https://bintray.com/ez/tools/smoke/_latestVersion)
+```grovvy
+// For gradle
+repositories {
+    jcenter()
+}
 
-```bash
-$ npm install koa-better-http-proxy --save
+dependencies {
+    compile 'com.ez.tools:smoke:3.0.2'
+}
 ```
 
 ## Basic Usage
