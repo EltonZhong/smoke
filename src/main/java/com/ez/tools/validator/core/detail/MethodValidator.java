@@ -37,7 +37,15 @@ public class MethodValidator extends BaseValidator {
         try {
             return method.invoke(o);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(String.format(
+                    "Error occured when invoking method %s#%s",
+                    method.getDeclaringClass().getName(),
+                    method.getName()), e);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(String.format(
+                    "Method  %s#%s should not contain any arguments",
+                    method.getDeclaringClass().getName(),
+                    method.getName()), e);
         }
     }
 }

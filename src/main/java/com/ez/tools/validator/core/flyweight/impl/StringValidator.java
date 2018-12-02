@@ -54,8 +54,11 @@ public class StringValidator<T extends VString, V extends String> extends BasicV
     }
 
     private void notEmpty() {
-        if (annotation.notEmpty()) {
-            Validate.notEmpty(value);
+        if (!annotation.notEmpty()) {
+            return;
+        }
+        if ("".contentEquals(value)) {
+            fail();
         }
     }
 }
