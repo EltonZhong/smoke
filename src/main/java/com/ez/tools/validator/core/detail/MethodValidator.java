@@ -4,6 +4,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MethodValidator extends BaseValidator {
     private Method method;
@@ -15,11 +17,15 @@ public class MethodValidator extends BaseValidator {
 
     @Override
     public void validate() {
-        valueToBeValidated = invokeMethod(method, rootNode);
-        Arrays
+        List<Annotation> vAnnotations = Arrays
                 .stream(method.getDeclaredAnnotations())
-                .filter(this::isVAnnotation)
-                .forEach(this::validateWithAnnotation);
+                .filter(this::isVAnnotation).collect(Collectors.toList());
+        if (vAnnotations.size() == 0) {
+            return;
+        }
+
+        valueToBeValidated = invokeMethod(method, rootNode);
+        vAnnotations.forEach(this::validateWithAnnotation);
     }
 
     @Override
