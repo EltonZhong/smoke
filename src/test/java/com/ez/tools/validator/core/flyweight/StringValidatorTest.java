@@ -99,4 +99,69 @@ public class StringValidatorTest {
                 .setValue(null)
                 .build();
     }
+
+    @Test
+    public void willValidateAndPassForShouldMatchValue() {
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("1abc12def34")
+                .setFieldName("shouldMatchAbcAndDef")
+                .build();
+    }
+
+    @Test
+    public void willValidateAndFailForShouldMatchValueMissMatch() {
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("1abc12d1ef34")
+                .setFieldName("shouldMatchAbcAndDef")
+                .expectException(IllegalStateException.class)
+                .build();
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("abcdef34")
+                .setFieldName("shouldMatchAbcAndDef")
+                .expectException(IllegalStateException.class)
+                .build();
+    }
+
+    @Test
+    public void willValidateAndPassForShouldNotMatchValue() {
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("1abbc12ddeef34")
+                .setFieldName("shouldNotMatchAbcAndDef")
+                .build();
+    }
+
+    @Test
+    public void willValidateAndFailForShouldNotMatchValueMissMatch() {
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("1abc12def34")
+                .setFieldName("shouldNotMatchAbcAndDef")
+                .expectException(IllegalStateException.class)
+                .build();
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("abc12def34")
+                .setFieldName("shouldNotMatchAbcAndDef")
+                .expectException(IllegalStateException.class)
+                .build();
+    }
+
+    @Test
+    public void testForEmailField() {
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("1136154955@")
+                .setFieldName("email")
+                .expectException(IllegalStateException.class)
+                .build();
+        ValidationTestBuilder
+                .setClass(User.class)
+                .setValue("1154955@qq.com")
+                .setFieldName("email")
+                .build();
+    }
 }

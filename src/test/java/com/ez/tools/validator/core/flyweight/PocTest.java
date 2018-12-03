@@ -11,7 +11,6 @@ public class PocTest {
         User user = new User();
         user.age = 10;
         user.name = "12";
-        Validator validator = new Validator();
-        validator.validate(user);
+        Validator.validate(user);
     }
 }

@@ -3,13 +3,14 @@ package com.ez.tools.validator.factory.dtos;
 import com.ez.tools.validator.annotations.VInt;
 import com.ez.tools.validator.annotations.VNotNull;
 import com.ez.tools.validator.annotations.VString;
+import com.ez.tools.validator.util.Regexps;
 
 public class User {
     @VNotNull
     public User notNullField = null;
 
     @VNotNull
-    @VString({"name1", "name2"})
+    @VString(value = {"name1", "name2"})
     public String name = null;
 
     @VInt({1, 2})
@@ -66,5 +67,29 @@ public class User {
     @VString(shouldContain = {"abc", "123"})
     public String getShouldContain_abc_And_123() {
         return shouldContain_abc_And_123;
+    }
+
+    @VString(shouldMatch = {".+abc.+", ".+def.+"})
+    public String shouldMatchAbcAndDef = "abc12def34";
+
+    @VString(shouldMatch = {".+abc.+", ".+def.+"})
+    public String getShouldMatchAbcAndDef() {
+        return shouldMatchAbcAndDef;
+    }
+
+    @VString(shouldNotMatch = {".+abc.+", ".+def.+"})
+    public String shouldNotMatchAbcAndDef = "1212ac12df34";
+
+    @VString(shouldNotMatch = {".+abc.+", ".+def.+"})
+    public String getShouldNotMatchAbcAndDef() {
+        return shouldNotMatchAbcAndDef;
+    }
+
+    @VString(shouldMatch = {Regexps.EMAIL})
+    public String email = "113615@qq.com";
+
+    @VString(shouldMatch = {Regexps.EMAIL})
+    public String getEmail() {
+        return email;
     }
 }

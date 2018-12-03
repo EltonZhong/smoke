@@ -41,5 +41,4 @@ public class ValidationTestBuilderTest {
                 .setValue("1")
                 .build();
     }
-
 }

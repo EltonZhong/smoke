@@ -3,7 +3,7 @@ package com.ez.tools.validator.core.flyweight.impl;
 
 import com.ez.tools.validator.annotations.VString;
 import com.ez.tools.validator.core.flyweight.BasicValidator;
-import org.apache.commons.lang3.Validate;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -20,6 +20,24 @@ public class StringValidator<T extends VString, V extends String> extends BasicV
         this.shouldNotBe();
         this.shouldContain();
         this.shouldNotContain();
+        this.shouldMatch();
+        this.shouldNotMatch();
+    }
+
+    private void shouldNotMatch() {
+        boolean hasValueMatchRegex = Arrays.stream(annotation.shouldNotMatch())
+                .anyMatch(regex -> value.matches(regex));
+        if (hasValueMatchRegex) {
+            fail();
+        }
+    }
+
+    private void shouldMatch() {
+        boolean hasValueNotMatchRegex = Arrays.stream(annotation.shouldMatch())
+                .anyMatch(regex -> !value.matches(regex));
+        if (hasValueNotMatchRegex) {
+            fail();
+        }
     }
 
     private void shouldBe() {

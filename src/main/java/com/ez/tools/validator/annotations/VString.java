@@ -20,4 +20,8 @@ public @interface VString {
 
     // Same as should be
     String[] value() default {};
+
+    // Regexps
+    String[] shouldMatch() default {};
+    String[] shouldNotMatch() default {};
 }
