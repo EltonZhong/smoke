@@ -85,7 +85,7 @@ public class ValidationTestBuilder {
     private void setValueAndPrepare() {
         try {
             rootNode = clz.newInstance();
-            field = clz.getField(fieldName);
+            field = clz.getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(rootNode, value);
         } catch (NoSuchFieldException | IllegalAccessException | InstantiationException e) {
@@ -100,7 +100,7 @@ public class ValidationTestBuilder {
     private void validateForMethod() {
         Method method = null;
         try {
-            method = clz.getMethod(getGetterName(fieldName));
+            method = clz.getDeclaredMethod(getGetterName(fieldName));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }

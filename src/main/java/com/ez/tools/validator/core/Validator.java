@@ -16,8 +16,8 @@ public class Validator {
         if (RecursiveHelper.has(o)) {
             return;
         }
-        validateForFieldsAndMethods(o);
         RecursiveHelper.recordValue(o);
+        validateForFieldsAndMethods(o);
     }
 
     private static void validateForFieldsAndMethods(Object o) {
