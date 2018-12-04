@@ -53,7 +53,7 @@ class YourRule implements IRule { ... }
 ## Advance features
 ### VRecursive
 Wanna validate details of a field with smoke? Try VRecursive:
-```
+```java
 class UserDto {
     @VRecursive
     AddressDto address = new AddressDto(this);
@@ -78,7 +78,8 @@ com.ez.tools.validator.Smoke.validate(new UserDto())
 ```
 
 ***`Remeber! When field is null, smoke will ignore this field's validation.`***
-***`You can use VNotNull to handle this`***
+
+***`You can use VNotNull to handle this situation`***
 ```java
 class UserDto {
     @VString(shouldMatch = "^elton.+")
