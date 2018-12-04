@@ -79,7 +79,7 @@ com.ez.tools.validator.Smoke.validate(new UserDto())
 
 ***`Remeber! When field is null, smoke will ignore this field's validation.`***
 ***`You can use VNotNull to handle this`***
-```
+```java
 class UserDto {
     @VString(shouldMatch = "^elton.+")
     String name = null;
@@ -91,6 +91,7 @@ com.ez.tools.validator.Smoke.validate(new UserDto())
 
 ### VString
 The regex feature has been released! Use regex:
+```java
 class UserDto {
 
     @VString(shouldMatch = {Regexps.EMAIL})
@@ -102,3 +103,4 @@ class UserDto {
     @VString(shouldNotMatch = {"..."})
     String name;
 }
+```
