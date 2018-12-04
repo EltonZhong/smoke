@@ -2,9 +2,11 @@ package com.ez.tools.validator.core.flyweight;
 
 import com.ez.tools.validator.annotations.VInt;
 import com.ez.tools.validator.annotations.VNotNull;
+import com.ez.tools.validator.annotations.VRecursive;
 import com.ez.tools.validator.annotations.VString;
 import com.ez.tools.validator.core.flyweight.impl.IntegerValidator;
 import com.ez.tools.validator.core.flyweight.impl.NotNullValidator;
+import com.ez.tools.validator.core.flyweight.impl.RecursiveValidator;
 import com.ez.tools.validator.core.flyweight.impl.StringValidator;
 
 import java.lang.annotation.Annotation;
@@ -36,6 +38,7 @@ public class ValidatorContainer {
         map.put(VInt.class, new IntegerValidator<>());
         map.put(VString.class, new StringValidator());
         map.put(VNotNull.class, new NotNullValidator());
+        map.put(VRecursive.class, new RecursiveValidator());
     }
 
     @SuppressWarnings("unchecked")
