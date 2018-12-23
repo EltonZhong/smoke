@@ -9,6 +9,7 @@ public class ClassValidator extends BaseValidator {
 
     public ClassValidator(Object o) {
         rootNode = o;
+        this.valueToBeValidated = o;
     }
 
     @Override

@@ -30,24 +30,44 @@ Go to package `com.ez.tools.validator.annotations` to find other features.
 
 Add additional rule:
 ```java
-com.ez.tools.validator.Smoke.validate(new UserDto(), Rule...)
+com.ez.tools.validator.Smoke.validate(new UserDto(), IRule...rules)
 ```
 or:
 ```java
 /**
 * Add your rule class
 **/
-@VRule("com.ez.tools.validator.core.rules.****")
+@VRule(com.ez.tools.validator.core.rules.AllFieldsShouldNotBeNull.class)
 class UserDto {}
 
 // Will validate using the rule specified in VRule value.
 com.ez.tools.validator.Smoke.validate(new UserDto())
 ```
 
-Write Additional rules:
+Also you can write Additional rules:
 
 ```java
-class YourRule implements IRule { ... }
+class YourRule implements IRule {
+    @Override
+    public void validate(Object o) {
+        if (!o instanceof UserDto) {
+            throw new IllegalArgumentException();
+        }
+        UserDto dto = (UserDto) o;
+        if(dto.name == "elton" && dto.age > 100) {
+            throw new Exception("Elton is dead after at 99 years old.")
+        }
+    }
+}
+
+// Use it in your common interface:
+interface SatisfyYourRule {}
+
+// Implements the interface:
+class YourDto implements SatisfyYourRule {}
+
+// When validate your dto, the rule will be invoked. And as rule above, Exception("Elton is dead after at 99 years old.") will be thrown
+Smoke.validate(new UserDto("elton", 100))
 ```
 
 ## Advance features

@@ -1,5 +1,7 @@
 package com.ez.tools.validator.annotations;
 
+import com.ez.tools.validator.core.rules.IRule;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,5 +16,5 @@ import java.lang.annotation.Target;
 public @interface VRule{
 
     // Same as should be
-    String[] value() default {};
+    Class<? extends IRule>[] value() default {};
 }
