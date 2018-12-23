@@ -1,5 +1,6 @@
 package com.ez.tools.validator.core;
 
+import com.ez.tools.validator.core.detail.ClassValidator;
 import com.ez.tools.validator.core.detail.FieldValidator;
 import com.ez.tools.validator.core.detail.MethodValidator;
 
@@ -17,9 +18,9 @@ public class Validator {
     }
 
     public void validate(Object o) {
-        helper.recordValue(o);
-        validateForFieldsAndMethods(o);
         helper.clean();
+        helper.recordValue(o);
+        validateFor(o);
     }
 
     public void validateSonRecursively(Object o) {
@@ -27,13 +28,27 @@ public class Validator {
             return;
         }
         helper.recordValue(o);
-        validateForFieldsAndMethods(o);
+        validateFor(o);
     }
 
-    private void validateForFieldsAndMethods(Object o) {
+    private void validateFor(Object o) {
+        validateForClass(o);
+        validateForFields(o);
+        validateForMethods(o);
+    }
+
+    private void validateForClass(Object o) {
+        new ClassValidator(o).validate();
+    }
+
+    private void validateForFields(Object o) {
         Arrays.stream(o.getClass().getDeclaredFields()).forEach(field -> new FieldValidator(field, o).validate());
+    }
+
+    private void validateForMethods(Object o) {
         Arrays.stream(o.getClass().getDeclaredMethods()).forEach(method -> new MethodValidator(method, o).validate());
     }
+
 
     private static class RecursiveHelper {
         private Set<Object> values = new HashSet<>();
