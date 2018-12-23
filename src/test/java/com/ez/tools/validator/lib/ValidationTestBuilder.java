@@ -32,7 +32,7 @@ public class ValidationTestBuilder {
         return this;
     }
 
-    public ValidationTestBuilder expectException(Class expectedExceptionClass) {
+    public ValidationTestBuilder expectException(Class<? extends Exception> expectedExceptionClass) {
         this.expectedExceptionClass = expectedExceptionClass;
         return this;
     }

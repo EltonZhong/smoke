@@ -6,37 +6,47 @@ import com.ez.tools.validator.core.detail.MethodValidator;
 import java.util.*;
 
 public class Validator {
-    public static void validate(Object o) {
-        RecursiveHelper.recordValue(o);
-        validateForFieldsAndMethods(o);
-        RecursiveHelper.clean();
+    static ThreadLocal<Validator> validator = new ThreadLocal<>();
+    private RecursiveHelper helper = new RecursiveHelper();
+
+    public static Validator getValidator() {
+        if (validator.get() == null) {
+            validator.set(new Validator());
+        }
+        return validator.get();
     }
 
-    public static void validateSonRecursively(Object o) {
-        if (RecursiveHelper.has(o)) {
+    public void validate(Object o) {
+        helper.recordValue(o);
+        validateForFieldsAndMethods(o);
+        helper.clean();
+    }
+
+    public void validateSonRecursively(Object o) {
+        if (helper.has(o)) {
             return;
         }
-        RecursiveHelper.recordValue(o);
+        helper.recordValue(o);
         validateForFieldsAndMethods(o);
     }
 
-    private static void validateForFieldsAndMethods(Object o) {
+    private void validateForFieldsAndMethods(Object o) {
         Arrays.stream(o.getClass().getDeclaredFields()).forEach(field -> new FieldValidator(field, o).validate());
         Arrays.stream(o.getClass().getDeclaredMethods()).forEach(method -> new MethodValidator(method, o).validate());
     }
 
     private static class RecursiveHelper {
-        private static Set<Object> values = new HashSet<>();
+        private Set<Object> values = new HashSet<>();
 
-        private static void recordValue(Object o) {
+        private void recordValue(Object o) {
             values.add(o);
         }
 
-        private static boolean has(Object o) {
+        private boolean has(Object o) {
             return values.contains(o);
         }
 
-        private static void clean() {
+        private void clean() {
             values = new HashSet<>();
         }
     }

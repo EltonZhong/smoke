@@ -1,6 +1,6 @@
 package com.ez.tools.validator.core.flyweight;
 
-import com.ez.tools.validator.core.Validator;
+import com.ez.tools.validator.Smoke;
 import com.ez.tools.validator.factory.dtos.User;
 import org.junit.Test;
 
@@ -11,6 +11,6 @@ public class PocTest {
         User user = new User();
         user.age = 10;
         user.name = "12";
-        Validator.validate(user);
+        Smoke.validate(user);
     }
 }

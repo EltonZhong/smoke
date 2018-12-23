@@ -1,9 +1,8 @@
 package com.ez.tools.validator.core.flyweight.impl;
 
-import com.ez.tools.validator.core.Validator;
 import com.ez.tools.validator.core.flyweight.BasicValidator;
-
 import java.lang.annotation.Annotation;
+import static com.ez.tools.validator.core.Validator.getValidator;
 
 public class RecursiveValidator extends BasicValidator {
 
@@ -13,6 +12,6 @@ public class RecursiveValidator extends BasicValidator {
             return;
         }
 
-        Validator.validateSonRecursively(value);
+        getValidator().validateSonRecursively(value);
     }
 }

@@ -1,6 +1,6 @@
 package com.ez.tools.validator.core.flyweight;
 
-import com.ez.tools.validator.core.Validator;
+import com.ez.tools.validator.Smoke;
 import com.ez.tools.validator.factory.dtos.recursive.A;
 import com.ez.tools.validator.factory.dtos.recursive.B;
 import org.junit.Test;
@@ -11,7 +11,7 @@ public class RecursiveValidatorTest {
     public void shouldThrowExceptionWhenRecursiveNotNullFieldIsNotOk() {
         A a = new A();
         a.b = new B();
-        Validator.validate(a);
+        Smoke.validate(a);
     }
 
     @Test
@@ -20,7 +20,7 @@ public class RecursiveValidatorTest {
         B b = new B();
         a.b = b;
         b.notnull = "1";
-        Validator.validate(a);
+        Smoke.validate(a);
     }
 
     @Test
@@ -30,6 +30,6 @@ public class RecursiveValidatorTest {
         a.b = b;
         b.a = a;
         b.notnull = "1";
-        Validator.validate(a);
+        Smoke.validate(a);
     }
 }
