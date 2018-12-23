@@ -1,5 +1,5 @@
 # Smoke [![Build Status](https://travis-ci.org/EltonZhong/smoke.svg?branch=master)](https://travis-ci.org/EltonZhong/smoke)
-A declarative validator framework for dtos and beans.
+A declarative validator framework for dtos, beans, or just objects.
 
 ## Install [ ![Download](https://api.bintray.com/packages/ez/tools/smoke/images/download.svg) ](https://bintray.com/ez/tools/smoke/_latestVersion)
 Get the latest version at [Jcenter](https://bintray.com/ez/tools/smoke/_latestVersion)
@@ -22,11 +22,41 @@ class UserDto {
     String name = null;
 }
 
-// Will throw java.lang.IllegalStateException when field is null
+// Will throw java.lang.IllegalStateException when field name is null
 com.ez.tools.validator.Smoke.validate(new UserDto())
 ```
 
 Go to package `com.ez.tools.validator.annotations` to find other features.
+
+
+## Advance features
+Smoke 5.0 focused on the following topics:
+- Field validation, with built-in constraints: @VString, @VInt, @VNotNull.
+- `Getter method` validation, contraints can be put on method with no arguments, when validating, the getter method will be called, and the value returned will be validated.
+- @VRule on class level, validate this kind of object using additional rule.
+
+### VString
+The regex feature has been released! Use regex:
+```java
+class UserDto {
+
+    @VString(shouldMatch = {Regexps.EMAIL})
+    String email;
+
+    // Custom regex: Name should match all values in should match
+    // And name should not match any values in should not match
+    @VString(shouldMatch = {".+", "..."})
+    @VString(shouldNotMatch = {"..."})
+    String name;
+
+    @VString(...)
+    public void get***() {
+    }
+}
+```
+
+### VRule
+Use additional rules to validate your dto.
 
 Add additional rule:
 ```java
@@ -71,7 +101,6 @@ class YourDto implements SatisfyYourRule {}
 Smoke.validate(new UserDto("elton", 100))
 ```
 
-## Advance features
 ### VRecursive
 Wanna validate details of a field with smoke? Try VRecursive:
 ```java
@@ -80,19 +109,24 @@ class UserDto {
     AddressDto address = new AddressDto(this);
 }
 
+@VRule(AllFieldsShouldNotBeNull.class)
 class AddressDto {
     public AddressDto(UserDto dto) {
         user = dto;
     }
 
-    @VNotNull
     String a = null;
+
+     @VString(shouldMatch = {Regexps.EMAIL})
+    String getEmail() {
+        return "123@qq.com";
+    }
 
     @VRecursive
     UserDto user = null;
 }
 
-// Will validate userDto's address.
+// Will validate userDto's address, with respect to rules and other annotation con
 // And don't worry that it might cause stackoverflow exception:
 // smoke will not validate same object twice.
 com.ez.tools.validator.Smoke.validate(new UserDto())
@@ -107,22 +141,6 @@ class UserDto {
     String name = null;
 }
 
-// Will not validate when name is null. If you want to, add @VNotNull annotation
+// Will not validate when name is null. If you want to, add @VNotNull annotation constraints.
 com.ez.tools.validator.Smoke.validate(new UserDto())
-```
-
-### VString
-The regex feature has been released! Use regex:
-```java
-class UserDto {
-
-    @VString(shouldMatch = {Regexps.EMAIL})
-    String email;
-
-    // Custom regex: Name should match all values in should match
-    // And name should not match any values in should not match
-    @VString(shouldMatch = {".+", "..."})
-    @VString(shouldNotMatch = {"..."})
-    String name;
-}
 ```
