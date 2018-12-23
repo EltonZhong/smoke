@@ -13,3 +13,5 @@ jdk:
   - oraclejdk8
 
 script: ./gradlew clean test
+  && [[ $TRAVIS_COMMIT_MESSAGE == Release* ]]
+  && ./gradlew clean build bintrayUpload -PbintrayUser=$bintrayUser -PbintrayKey=$bintrayKey -PdryRun=false

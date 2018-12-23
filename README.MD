@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.ez.tools:smoke:3.0.2'
+    compile 'com.ez.tools:smoke:5.0.0'
 }
 ```
 
@@ -61,6 +61,7 @@ class YourRule implements IRule {
 }
 
 // Use it in your common interface:
+@VRule(YourRule.class)
 interface SatisfyYourRule {}
 
 // Implements the interface:
